@@ -18,9 +18,9 @@ The purpose of this project is to allow for one to describe and save the food it
 - As a User, my recipies and ingredients should persist on my account
 
 ## Models
-User
-Recipe
-Ingredient
+- User
+- Recipe
+- Ingredient
 
 ## Wireframe
 
