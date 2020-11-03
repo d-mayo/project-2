@@ -24,6 +24,7 @@ db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
 db.on('disconnected', () => console.log('mongo disconnected'));
 // open the connection to mongo
 db.on('open' , ()=>{});
+
 //___________________
 //Middleware
 //___________________
@@ -34,6 +35,15 @@ app.use(express.urlencoded({ extended: false }));// extended: false - does not a
 app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
+
+// Controllers
+const usersController = require('./controllers/users_controller.js')
+app.use('/users', usersController)
+
+const sessionsController = require('./controllers/sessions_controller.js')
+app.use('/sessions', sessionsController)
+
+
 //___________________
 // Routes
 //___________________
