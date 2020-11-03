@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const recipeSchema = Schema({
-  username: { type: String, unique: true, required: true },
-  password: String,
+  title: { type: String, unique: true, required: true },
+  author: { type: String, unique: true, required: true },
   ingredients: [
     {
       type: mongoose.Schema.Types.ObjectId,
