@@ -11,4 +11,4 @@ const ingredientSchema = new mongoose.Schema(
   { timestamps: true, collation: { locale: 'en', strength: 2 } }
 );
 
-module.exports = mongoose.model('Actor', actorSchema);
+module.exports = mongoose.model('Ingredient', ingredientSchema);
