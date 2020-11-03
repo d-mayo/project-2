@@ -1,11 +1,58 @@
 const bcrypt = require('bcrypt')
 const express = require('express')
 const User = require('../models/user.js')
+const Ingredient = require('../models/ingredient.js')
 const users = express.Router()
 
+
+
 users.get('/new', (req, res) => {
-    res.send('New User')
-      
+  res.render(
+    'users/new.ejs'
+    , {currentUser: req.session.currentUser}
+  )
+})
+
+users.get('/seed',  async (req, res) => {
+  
+
+  let allIngredients = await Ingredient.find({});
+
+  let foundFood = await User.findByIdAndUpdate(
+    req.session.currentUser._id,
+    {
+      $push: {
+        ingredients: allIngredients,
+      },
+    },
+    { new: true, upsert: true }
+  );
+
+  
+
+  res.send('Hi')
+
+  // let curUser = req.session.currentUser;
+
+  // Ingredient.create(
+  //   [
+  //     {
+  //       name: 'egg'
+  //     },
+  //     {
+  //       name: 'flour'
+  //     },
+  //     {
+  //       name: 'avocado'
+  //     },
+  //     {
+  //       name: 'cheddar cheese'
+  //     }
+  //   ],
+  //   (error, data) => {
+  //     res.redirect('/ingredients')
+  //   }
+  // )
 })
 
 users.post('/', (req, res) => {
