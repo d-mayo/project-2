@@ -47,6 +47,8 @@ app.use(
     })
   )
 
+
+
 // Controllers
 const usersController = require('./controllers/users_controller.js')
 app.use('/users', usersController)
@@ -54,7 +56,11 @@ app.use('/users', usersController)
 const ingredientsController = require('./controllers/ingredients_controller.js')
 app.use('/ingredients', ingredientsController)
 
-const sessionsController = require('./controllers/sessions_controller.js')
+const sessionsController = require('./controllers/sessions_controller.js');
+const User = require('./models/user.js');
+
+
+User.findById
 app.use('/sessions', sessionsController)
 
 
@@ -62,8 +68,10 @@ app.use('/sessions', sessionsController)
 // Routes
 //___________________
 //localhost:3000
-app.get('/' , (req, res) => {
-  res.send('Hello World!');
+app.get('/' , async (req, res) => {
+  req.session.currentUser = await User.findById('5fa17ca10471667bf86d8e0b') //debug: auto authenticate
+  console.log("Authenticated user "+req.session.currentUser.username);
+  res.redirect('/ingredients');
 });
 //___________________
 //Listener

@@ -21,9 +21,9 @@ users.get('/seed',  async (req, res) => {
   let foundFood = await User.findByIdAndUpdate(
     req.session.currentUser._id,
     {
-      $push: {
-        ingredients: allIngredients,
-      },
+      
+      ingredients: allIngredients,
+      
     },
     { new: true, upsert: true }
   );
@@ -32,27 +32,6 @@ users.get('/seed',  async (req, res) => {
 
   res.send('Hi')
 
-  // let curUser = req.session.currentUser;
-
-  // Ingredient.create(
-  //   [
-  //     {
-  //       name: 'egg'
-  //     },
-  //     {
-  //       name: 'flour'
-  //     },
-  //     {
-  //       name: 'avocado'
-  //     },
-  //     {
-  //       name: 'cheddar cheese'
-  //     }
-  //   ],
-  //   (error, data) => {
-  //     res.redirect('/ingredients')
-  //   }
-  // )
 })
 
 users.post('/', (req, res) => {
