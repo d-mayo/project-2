@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Create a Recipe</h1>
+      <form action="/recipes" method="POST">
+      <label for="title">Title</label> 
+      <input type="text" name="title" required/>
+      <input type="text" name="author" value="testuser" style="display:none"/>
+      <h2>Ingredients</h2>
+            <ul id="ingredient-list">
+                <li>   
+                    
+                    <input type="text" name="ingredients"[0] placeholder="ingredient" required/>
+                    <input type="text" name="amount"[0] placeholder="amount" required/>
+                    <input type="text" name="measurement"[0] placeholder="measurement" required/>
+                </li>
+            </ul>
+            <button type="button" id="more-ing">Add another ingredient</button>
+            <button type="button" id="less-ing">Remove Ingredient</button><br>
+            
+            <h2>Steps</h2>
+            <ol id="step-list">
+                <li>
+                    <input type="text" name="instructions"[0] />
+                </li>
+            </ol>
+            <button type="button" id="more-step">Add another step</button>
+            <button type="button" id="less-step">Remove step</button><br>
+            <input type="submit" value="Submit">
+        </form>
+          
+    </div>
+    <script>
+        const moreIngBtn = document.querySelector('#more-ing');
+        const lessIngBtn = document.querySelector('#less-ing');
+        const moreStepBtn = document.querySelector('#more-step');
+        const lessStepBtn = document.querySelector('#less-step');
+        const ingredients = document.querySelector('#ingredient-list');
+        const steps = document.querySelector('#step-list');
+        let ingredientCounter = 1;
+        let stepCounter = 1;
+
+        moreIngBtn.addEventListener('click', (event) => {
+            ingredientCounter++;
+            let node = document.createElement("li"); 
+            node.innerHTML = `<input type="text" name="ingredients"[${ingredientCounter}] placeholder="ingredient" required/>
+                    <input type="text" name="amount"[${ingredientCounter}] placeholder="amount" required/>
+                    <input type="text" name="measurement"[${ingredientCounter}] placeholder="measurement" required/>` 
+             
+            ingredients.appendChild(node);
+        
+        });
+
+        lessIngBtn.addEventListener('click', (event) => {
+            if(ingredientCounter > 1){
+                ingredientCounter--;
+                ingredients.removeChild(ingredients.lastChild);
+            }
+        });
+         
+
+        moreStepBtn.addEventListener('click', (event) => {
+            stepCounter++;
+            let node = document.createElement("li"); 
+            node.innerHTML = `<input type="text" name="instructions"[${stepCounter}] required/>`
+            steps.appendChild(node);
+        
+        });
+
+        lessStepBtn.addEventListener('click', (event) => {
+            if(stepCounter > 1){
+                stepCounter--;
+                steps.removeChild(steps.lastChild);
+            }
+            
+        
+        });
+
+         
+    
+    </script>
+  </body>
+</html>

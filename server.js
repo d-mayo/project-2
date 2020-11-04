@@ -56,6 +56,9 @@ app.use('/users', usersController)
 const ingredientsController = require('./controllers/ingredients_controller.js')
 app.use('/ingredients', ingredientsController)
 
+const recipesController = require('./controllers/recipes_controller.js')
+app.use('/recipes', recipesController)
+
 const sessionsController = require('./controllers/sessions_controller.js');
 const User = require('./models/user.js');
 
