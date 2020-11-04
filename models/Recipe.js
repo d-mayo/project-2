@@ -20,11 +20,6 @@ const recipeSchema = Schema({
       { 
           type: String, required: true
       }
-  ],
-  tags: [
-      {
-          type: String
-      }
   ]
 })
 
