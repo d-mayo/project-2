@@ -4,11 +4,8 @@ const User = require('../models/user.js')
 const ingredients = express.Router()
 
 
-ingredients.get('/new', (req, res) => {
-    res.send('New Ingredient')
-      
-})
 
+//get ingredients of logged in user
 ingredients.get('/', async (req, res) => {
 
     let userIngredients = await Ingredient.find({
@@ -18,6 +15,7 @@ ingredients.get('/', async (req, res) => {
     res.render('ingredients/index.ejs', { ingredients: userIngredients } );
 })
 
+//get all ingredients in DB
 ingredients.get('/all', async (req, res) => {
 
     let allIngredients = await Ingredient.find();
@@ -71,7 +69,7 @@ ingredients.put('/add/user', async (req, res) => {
           console.log(err)
           res.send('oops the db had a problem')
         } else if (!foundIngredient) {
-          // if found user is undefined/null not found etc
+          // if found ingredient doesn't exist, prompt to add to DB
           res.render('ingredients/new.ejs', { ingredient: searchedIngredient })
         } else {
             let selectedUser = await User.findByIdAndUpdate(
