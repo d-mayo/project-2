@@ -10,6 +10,17 @@ const recipeSchema = Schema({
       ref: 'Ingredient',
     },
   ],
+  amount: [
+    { type: String, required: true }
+  ],
+  measurement: [
+    { type: String, required: true }
+  ],
+  instructions: [
+      { 
+          type: String, required: true
+      }
+  ],
   tags: [
       {
           type: String
