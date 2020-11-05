@@ -2,13 +2,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const recipeSchema = Schema({
-  title: { type: String, unique: true, required: true },
-  author: { type: String, unique: true, required: true },
+  title: { type: String, required: true },
+  creator: { type: String, required: true },
   ingredients: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Ingredient',
-    },
+    { type: String, required: true }
   ],
   amount: [
     { type: String, required: true }
@@ -17,9 +14,7 @@ const recipeSchema = Schema({
     { type: String, required: true }
   ],
   instructions: [
-      { 
-          type: String, required: true
-      }
+    { type: String, required: true }
   ]
 })
 
