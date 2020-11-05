@@ -15,9 +15,10 @@ const isAuthenticated = (req, res, next) => {
 
 //get ingredients of logged in user
 ingredients.get('/', isAuthenticated, async (req, res) => {
+    const currentUser = await User.findById(req.session.currentUser._id);
 
     let userIngredients = await Ingredient.find({
-        '_id': { $in: req.session.currentUser.ingredients }
+        '_id': { $in: currentUser.ingredients}
     });
 
     res.render('ingredients/index.ejs', { ingredients: userIngredients } );
@@ -70,32 +71,32 @@ ingredients.put('/add/user', isAuthenticated, async (req, res) => {
 
     searchedIngredient = searchedIngredient.toLowerCase();
 
-    Ingredient.find( { name: searchedIngredient } )
+    await Ingredient.find( { name: searchedIngredient } )
 
-    Ingredient.findOne( { name: searchedIngredient }, async (err, foundIngredient) => {
+    const foundIngredient = await Ingredient.findOne( { name: searchedIngredient })  
+
         // Database error
-        if (err) {
-          console.log(err)
-          res.send('oops the db had a problem')
-        } else if (!foundIngredient) {
+        // if (err) {
+        //   console.log(err)
+        //   res.send('oops the db had a problem')
+        if (!foundIngredient) {
           // if found ingredient doesn't exist, prompt to add to DB
           res.render('ingredients/new.ejs', { ingredient: searchedIngredient })
         } else {
-            let selectedUser = await User.findByIdAndUpdate(
+            await User.findByIdAndUpdate(
                 req.session.currentUser,
                 {
-                    $push: {
+                    $addToSet: {
                         ingredients: foundIngredient,
                       },
                 },
                 { new: true, upsert: true }
             );
-              res.redirect('/');
-          
+            res.redirect('/ingredients')
         }
-      })
-     
 });
+     
+
 
 // SEED ROUTE
 ingredients.get('/setup/seed', (req, res) => {

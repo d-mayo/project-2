@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
         // add the user to our session
         req.session.currentUser = foundUser
-        console.log(req.session.currentUser);
+        console.log("Authenticated user "+req.session.currentUser.username);
         // redirect back to our home page
         res.redirect('/')
       } else {

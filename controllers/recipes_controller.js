@@ -18,8 +18,10 @@ recipes.get('/new', isAuthenticated, (req, res) => {
       
 })
 
-recipes.get('/created', isAuthenticated, (req, res) => {
-    Recipe.find({ creator: req.session.currentUser.username }, (error, allRecipes) => {
+recipes.get('/all', isAuthenticated, (req, res) => {
+
+    console.log(req.session.currentUser);
+    Recipe.find({ }, (error, allRecipes) => {
         res.render('recipes/created.ejs', {
           recipes: allRecipes,
           currentUser: req.session.currentUser
@@ -28,21 +30,51 @@ recipes.get('/created', isAuthenticated, (req, res) => {
       
 })
 
-recipes.get('/:id', isAuthenticated, (req, res) => {
-    Recipe.findById(req.params.id, (error, foundRecipe) => {
-      res.render('recipes/show.ejs', {
-        recipe: foundRecipe
-        ,  currentUser: req.session.currentUser
-      })
-    })
-})
+recipes.get('/find', isAuthenticated, async (req, res) => {
+    let ingredientNames = [];
 
-recipes.get('/all', isAuthenticated, (req, res) => {
-    res.send('New Recipe')
+
+    const currentUser = await User.findById(req.session.currentUser._id);
+
+    //console.log(req.session.currentUser);
+    const ingredientArray = currentUser.ingredients;
+
+    for (let i = 0; i < ingredientArray.length; i++){
+        let foundIngredient = await Ingredient.findById( ingredientArray[i] );
+        ingredientNames.push(foundIngredient.name);
+
+    }
+    let foundRecipes = await Recipe.find({
+        'ingredients': { $in: ingredientNames}
+    });
+
+    res.render('recipes/created.ejs', { recipes: foundRecipes, currentUser: req.session.currentUser});
       
 })
 
+recipes.get('/:id/edit', isAuthenticated, async (req, res) => {
+    
+    const currentRecipe = await Recipe.findById(req.params.id);
 
+    res.render('recipes/edit.ejs', { recipe: currentRecipe, currentUser: req.session.currentUser })
+
+})
+
+recipes.get('/:id', isAuthenticated, (req, res) => {
+    
+    Recipe.findById(req.params.id, (error, foundRecipe) => {
+        display = 'display: none';
+        if ( foundRecipe.creator == req.session.currentUser.username ){
+            display = 'display: block';
+        }
+      res.render('recipes/show.ejs', {
+        recipe: foundRecipe,  
+        currentUser: req.session.currentUser,
+        show: display
+
+      })
+    })
+})
 
 // UPDATE
 recipes.put('/:id', isAuthenticated, (req, res) => {
@@ -52,16 +84,16 @@ recipes.put('/:id', isAuthenticated, (req, res) => {
       req.body,
       { new: true },
       (error, updatedModel) => {
-        res.redirect('/recipes/created')
+        res.redirect('/recipes/')
       }
     )
-  })
+})
 
 recipes.delete('/:id', isAuthenticated, (req, res) => {
     Recipe.findByIdAndRemove(req.params.id, (err, deletedFruit) => {
-      res.redirect('/recipes/created');
+      res.redirect('/recipes');
     })
-  })
+})
 
 recipes.post('/', isAuthenticated, async (req, res) => {
     req.body.creator = req.session.currentUser.username;
@@ -69,12 +101,22 @@ recipes.post('/', isAuthenticated, async (req, res) => {
 
     try {
         let newIngredient = await Recipe.create(req.body);
-        res.redirect('/recipes/created');
+        res.redirect('/recipes');
     } catch (error) {
         res.send(error);
       }
 
-  });
+});
+
+recipes.get('/', isAuthenticated, (req, res) => {
+    Recipe.find({ creator: req.session.currentUser.username }, (error, allRecipes) => {
+        res.render('recipes/created.ejs', {
+          recipes: allRecipes,
+          currentUser: req.session.currentUser
+        })
+    })
+      
+})
 
 
 
