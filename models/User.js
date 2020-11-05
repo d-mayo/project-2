@@ -4,16 +4,11 @@ const Schema = mongoose.Schema
 const userSchema = Schema({
   username: { type: String, unique: true, required: true },
   password: String,
-  ingredients: [
+  ingredients: [ 
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Ingredient',
-    },
-  ],
-  createdRecipes: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Recipe',
+      
     },
   ]
 })
