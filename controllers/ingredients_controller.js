@@ -3,10 +3,18 @@ const Ingredient = require('../models/ingredient.js')
 const User = require('../models/user.js')
 const ingredients = express.Router()
 
+const isAuthenticated = (req, res, next) => {
+    if (req.session.currentUser) {
+      return next()
+    } else {
+      res.redirect('/sessions/new')
+    }
+  }
+
 
 
 //get ingredients of logged in user
-ingredients.get('/', async (req, res) => {
+ingredients.get('/', isAuthenticated, async (req, res) => {
 
     let userIngredients = await Ingredient.find({
         '_id': { $in: req.session.currentUser.ingredients }
@@ -16,7 +24,7 @@ ingredients.get('/', async (req, res) => {
 })
 
 //get all ingredients in DB
-ingredients.get('/all', async (req, res) => {
+ingredients.get('/all', isAuthenticated, async (req, res) => {
 
     let allIngredients = await Ingredient.find();
 
@@ -24,6 +32,7 @@ ingredients.get('/all', async (req, res) => {
 })
 
 ingredients.post('/', async (req, res) => {
+    console.log(req.body);
     try {
       let newIngredient = await Ingredient.create(req.body);
       res.redirect('/');
@@ -33,7 +42,7 @@ ingredients.post('/', async (req, res) => {
   });
 
   // UPDATE
-ingredients.put('/remove/user/:id', async (req, res) => {
+ingredients.put('/remove/user/:id', isAuthenticated, async (req, res) => {
 
     curUser = req.session.currentUser;
 
@@ -53,7 +62,7 @@ ingredients.put('/remove/user/:id', async (req, res) => {
      res.redirect('/ingredients');
 });
 
-ingredients.put('/add/user', async (req, res) => {
+ingredients.put('/add/user', isAuthenticated, async (req, res) => {
 
     curUser = req.session.currentUser;
 
@@ -80,7 +89,7 @@ ingredients.put('/add/user', async (req, res) => {
                       },
                 },
                 { new: true, upsert: true }
-              );
+            );
               res.redirect('/');
           
         }
