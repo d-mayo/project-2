@@ -8,11 +8,14 @@
 <body>
 
     <h1><%= recipe.title %></h1>
+    <p>Submitted by <strong><%=recipe.creator %></strong></p>
 
     <h2>Ingredients</h2>
     <ul>
-        <% recipe.ingredients.forEach(ingredient => { %>
-            <li><%=ingredient%></li>
+        <% recipe.ingredients.forEach( (ingredient, index) => { %>
+            <li>
+                <p><%=ingredient%> <strong> - <%=recipe.amount[index]%> <%= recipe.measurement[index]%> </strong> </p>
+            </li>
         <% }) %>
     </ul>
     <h2>Directions</h2>
@@ -21,6 +24,17 @@
             <li><%=instruction%></li>
         <% }) %>
     </ol>
+
+    <form action="/recipes/<%=recipe._id%>?_method=DELETE" method="POST" style="<%=show%>"">
+        <input type="submit" value="DELETE THIS RECIPE"/>
+    </form>
+
+    <a href="javascript:history.back()">Return</a>
+    <% if (!show.includes('none')) { %>
+       
+        <button type="button" name="button"><a href="/recipes/<%=recipe._id%>/edit">Edit</a></button>
+    <% } %>
+    
     
 </body>
 </html>
