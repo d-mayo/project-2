@@ -2,11 +2,13 @@
 //Dependencies
 //___________________
 const express = require('express');
+//const expressLayouts = require('express-ejs-layouts');
 const methodOverride  = require('method-override');
 const mongoose = require ('mongoose');
 const app = express();
 const session = require('express-session')
 const db = mongoose.connection;
+const env = require('dotenv').config()
 //___________________
 //Port
 //___________________
@@ -18,9 +20,14 @@ const PORT = process.env.PORT || 3000;
 // How to connect to the database either via heroku or locally
 const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/'+ 'PROJECT-2';
 // set secret thru heroku or seperate file
-const SECRET = process.env.SECRET || require('./secret.js');
+const SECRET = process.env.SECRET 
 // Connect to Mongo
-mongoose.connect(MONGODB_URI ,  { useNewUrlParser: true});
+mongoose.connect(MONGODB_URI , { 
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useNewUrlParser: true
+});
 // Error / success
 db.on('error', (err) => console.log(err.message + ' is Mongod not running?'));
 db.on('connected', () => console.log('mongo connected: ', MONGODB_URI));
@@ -38,6 +45,7 @@ app.use(express.urlencoded({ extended: false }));// extended: false - does not a
 app.use(express.json());// returns middleware that only parses JSON - may or may not need it depending on your project
 //use method override
 app.use(methodOverride('_method'));// allow POST, PUT and DELETE from a form
+//app.use(expressLayouts);
 
 app.use(
     session({
@@ -45,7 +53,7 @@ app.use(
       resave: false, // default more info: https://www.npmjs.com/package/express-session#resave
       saveUninitialized: false // default  more info: https://www.npmjs.com/package/express-session#resave
     })
-  )
+)
 
 
 
@@ -72,8 +80,7 @@ app.use('/sessions', sessionsController)
 //___________________
 //localhost:3000
 app.get('/' , async (req, res) => {
-  req.session.currentUser = await User.findById('5fa17ca10471667bf86d8e0b') //debug: auto authenticate
-  console.log("Authenticated user "+req.session.currentUser.username);
+  req.session.currentUser = await User.findById('5fa429110389c9b5bfe31692') //debug: auto authenticate
   res.redirect('/ingredients');
 });
 //___________________
