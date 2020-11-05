@@ -80,7 +80,6 @@ app.use('/sessions', sessionsController)
 //___________________
 //localhost:3000
 app.get('/' , async (req, res) => {
-  req.session.currentUser = await User.findById('5fa429110389c9b5bfe31692') //debug: auto authenticate
   res.redirect('/ingredients');
 });
 //___________________
