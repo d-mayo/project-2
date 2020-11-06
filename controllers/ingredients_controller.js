@@ -33,7 +33,6 @@ ingredients.get('/all', isAuthenticated, async (req, res) => {
 })
 
 ingredients.post('/', async (req, res) => {
-    console.log(req.body);
     try {
       let newIngredient = await Ingredient.create(req.body);
       res.redirect('/');
@@ -45,12 +44,9 @@ ingredients.post('/', async (req, res) => {
   // UPDATE
 ingredients.put('/remove/user/:id', isAuthenticated, async (req, res) => {
 
-    console.log("Hi");
-
     curUser = await User.findById(req.session.currentUser._id);
 
     ingredientIndex = curUser.ingredients.indexOf(req.params.id) ;
-    console.log(curUser);
 
     curUser.ingredients.splice( ingredientIndex, 1);
 
@@ -70,9 +66,7 @@ ingredients.put('/remove/user/:id', isAuthenticated, async (req, res) => {
 
 ingredients.put('/add/user', isAuthenticated, async (req, res) => {
 
-    curUser = await User.findById(req.session.currentUser._id);;
-
-    console.log(curUser);
+    curUser = await User.findById(req.session.currentUser._id);
 
     let searchedIngredient = req.body.addedIngredient;
 
@@ -82,10 +76,6 @@ ingredients.put('/add/user', isAuthenticated, async (req, res) => {
 
     const foundIngredient = await Ingredient.findOne( { name: searchedIngredient })  
 
-        // Database error
-        // if (err) {
-        //   console.log(err)
-        //   res.send('oops the db had a problem')
         if (!foundIngredient) {
           // if found ingredient doesn't exist, prompt to add to DB
           res.render('ingredients/new.ejs', { ingredient: searchedIngredient })

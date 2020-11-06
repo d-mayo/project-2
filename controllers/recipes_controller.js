@@ -20,7 +20,6 @@ recipes.get('/new', isAuthenticated, (req, res) => {
 
 recipes.get('/all', isAuthenticated, (req, res) => {
 
-    console.log(req.session.currentUser);
     Recipe.find({ }, (error, allRecipes) => {
         res.render('recipes/created.ejs', {
           recipes: allRecipes,
@@ -36,7 +35,6 @@ recipes.get('/find', isAuthenticated, async (req, res) => {
 
     const currentUser = await User.findById(req.session.currentUser._id);
 
-    //console.log(req.session.currentUser);
     const ingredientArray = currentUser.ingredients;
 
     for (let i = 0; i < ingredientArray.length; i++){
@@ -97,7 +95,6 @@ recipes.delete('/:id', isAuthenticated, (req, res) => {
 
 recipes.post('/', isAuthenticated, async (req, res) => {
     req.body.creator = req.session.currentUser.username;
-    console.log(req.body);
 
     try {
         let newIngredient = await Recipe.create(req.body);
