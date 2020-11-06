@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Fruits Auth</title>
-  </head>
-  <body>
-    <div class="container">
+<div class="alert">
       <h1>Log In</h1>
       <form action="/sessions" method="POST">
-        <label for="name">User Name:</label>
-        <input type="text" name="username" required/>
-        <label for="color">Password:</label>
-        <input type="password" name="password" />
-        <br>
+        <input type="text" name="username" placeholder="User Name" required/>
+        <input type="password" name="password" placeholder="Password" />
         <input type="submit" value="Submit">
       <form>
 
         <br><br><a href="/users/new">New User?</a>
-    </div>
-  </body>
-</html>
+ </div>

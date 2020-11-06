@@ -1,32 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <ul>
+
+<div id="ingredients-window">
+    <h1>Add Ingredients</h1>
+    <ul id="ingredient-list">
         <% ingredients.forEach(ingredient => { %>
             <li>
 
-            <form action="/ingredients/remove/user/<%= ingredient._id %>?_method=PUT" method="POST" id="removeIngredient">
-                <input type="submit" value="<%= ingredient.name %>" />
-            </form>
+                <form action="/ingredients/remove/user/<%= ingredient._id %>?_method=PUT" method="POST" class="ingredients" id="removeIngredient">
+                    <input type="submit" value="<%= ingredient.name %>" />
+                </form>
 
-        </li>
+            </li>
         <% }) %>
     </ul>
     <form action="/ingredients/add/user?_method=PUT" method="POST" id="addIngredient">
         <input type="text" name="addedIngredient" />
         <input type="submit" value="Add Ingredient" />
     </form>
+   <a id="reciplease" href="/recipes/find">Reciplease!</a>
 
-    <a href="/recipes/find">Find a Recipe</a>
-    <a href="/recipes/new">Create a Recipe</a>
-    <a href="/recipes/">My Recipes</a>
-    <a href="/recipes/all">All Recipes</a>
+</div>
 
-    
-</body>
-</html>
+
