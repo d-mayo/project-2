@@ -1,17 +1,20 @@
-# Project 2 - Recipe Builder
+# Project 2 - Reci-please!
 
 ## Overview:
 
-The purpose of this project is to allow for one to describe and save the food items they have on-hand to get a list of compatible recipes that match those ingredients. Users can also submit recipes of their own for sharing with the community.
+Reci-please allows for one to create a list of ingredients they have on-hand in order to get a list of recipes back that match their ingredients! The purpose of this project is to demonstrate my progress learning Node.js, MongoDB/Mongoose, and my overall full-stack development capabilities. 
+
+## Screenshot
+<img src="/screenshot.png" width="500"/>
+
 
 ## User Stories:
 - As a User, I would need to sign up for or log in to an account
+- As a User, I would need to be able to log out of my account
 - As a User, I would like to be able to add ingredients to my account
 - As a User, I would like to be able to delete ingredients from my account
-- As a User, I would like to be able to edit/update ingredients on my account
 - As a User, I would like to be able to search for recipes based on my current ingredients
-- As a User, I would like to be able to rate recipes
-- As a User, I would like to be able to save recipes
+- As a User, I would like to be able to search for any recipe
 - As a User, I would like to be able to create my own recipes
 - As a User, I would like to be able to delete my own recipes
 - As a User, I would like to be able to edit/update my own recipes
@@ -25,6 +28,42 @@ The purpose of this project is to allow for one to describe and save the food it
 ## Wireframe
 
 <img src="/wireframe.jpg" width="500"/>
+
+## Technologies Used
+Languages
+- JavaScript
+- CSS
+- HTML
+- EJS
+
+Frameworks/Middleware
+- Node.JS
+- Express
+- Express Session
+- Express EJS Layouts
+- Bcrypt
+
+ODM/DB
+- Mongoose
+- MongoDB
+
+Testing
+- Postman
+- Chrome Developer Tools
+- Heroku CLI
+
+Deployed with
+- Heroku
+
+## Future Features
+- Recipe Image Support
+- Finish CSS Styling
+- Allow for customization of matched items in search
+
+
+
+## CREDITS
+<a href='https://pngtree.com/so/food'>food png from pngtree.com</a>
 
 
 
