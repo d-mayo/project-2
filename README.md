@@ -4,6 +4,9 @@
 
 Reci-please allows for one to create a list of ingredients they have on-hand in order to get a list of recipes back that match their ingredients! The purpose of this project is to demonstrate my progress learning Node.js, MongoDB/Mongoose, and my overall full-stack development capabilities. 
 
+Check it out [here](https://lawrence-project2.herokuapp.com/)!
+
+
 ## Screenshot
 <img src="/screenshot.png" width="500"/>
 
