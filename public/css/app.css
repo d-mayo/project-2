@@ -1,0 +1,190 @@
+body {
+    background: url(/img/background.png);
+  
+    background-size: 500px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+
+nav {
+    border: 2px solid black;
+    background: rgb(245, 118, 118);
+
+}
+
+nav > a, #login-nav > a {
+    text-decoration: none;
+    padding: 20px;
+    color: black;
+    font-family: 'Anton', sans-serif;
+
+}
+
+nav > a:hover, #login-nav > a:hover {
+    text-decoration: underline;
+    box-shadow: 0px 0px 2px 1px grey;
+    border: solid black 1px;
+
+
+}
+
+#login-nav {
+    display: flex;
+    
+    
+}
+
+#main-content {
+    background: rgba(218, 213, 194, 0.95);
+    display: flex;
+    justify-content: space-around;
+    align-content: center;
+    align-items: center;
+    flex-grow: 1;
+    margin: 0 140px;
+    box-shadow: 0px 5px 5px 1px grey;
+
+}
+
+#logo{
+    font-family: 'Luckiest Guy', cursive;
+    font-size: 25px;
+    padding: 0;
+    color:white;
+}
+
+h1 {
+    font-family: 'Anton', sans-serif;
+}
+
+#left{
+
+    flex-shrink: 5;
+}
+
+#right {
+    flex-basis: 30px;
+    
+}
+
+#main > a {
+    display: block;
+    text-align: right;
+    margin: 0 10px -40px -25px;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    color: red;
+    font-size: 30px;
+}
+
+
+#ingredients-window {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: stretch;
+
+}
+
+#ingredient-list{
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+
+}
+
+.alert {
+    background: rgb(243, 236, 236);
+    padding: 80px;
+    border-radius: 3%;
+    box-shadow: 0px 0px 2px 1px black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: 'Anton', sans-serif;
+}
+
+.ingredients {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1px;
+    margin: 5px;
+}
+
+.ingredients > input {
+    all: unset;
+    background:rgb(243, 236, 236);
+    vertical-align: bottom;
+    box-shadow: 0px 0px 2px 1px black;
+    font-family: 'Fredoka One', cursive;
+    
+    padding: 10px;
+}
+
+.ingredients > input:hover {
+    background:rgba(185, 180, 180, 0.719);
+    box-shadow: 0 0 0 0;
+    padding: 10px;
+    color: rgb(0, 0, 0, 0.5);
+}
+
+#reciplease {
+
+    text-decoration: none;
+    color: white;
+    padding: 20px;
+    margin: 15px;
+    background: red;
+    border-radius: 5%;
+    box-shadow: 0px 0px 2px 1px black;
+    user-select: none;
+    font-family: 'Luckiest Guy', cursive;
+    
+}
+
+#recipe-index {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipe{
+    background: rgb(243, 236, 236);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5%;
+    box-shadow: 0px 0px 1px 1px black;
+    flex-wrap: wrap;
+    text-decoration: none;
+    font-family: 'Fredoka One', cursive;
+    color: black;
+    
+}
+
+#return-btn {
+    padding: 15px;
+    font-size: 10px;
+}
+
+
+
+#reciplease:hover {
+    background: rgb(146, 5, 5);
+    color:  rgb(180, 180, 180);
+    
+    
+}
+
+
+
+nav {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: space-around;
+    
+}
