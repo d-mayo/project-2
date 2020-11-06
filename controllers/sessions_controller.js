@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user.js')
 router.get('/new', (req, res) => {
-  res.render('sessions/new.ejs')
+  res.render('sessions/new.ejs', {currentUser : req.session.currentUser })
 })
 // on sessions form submit (log in)
 router.post('/', (req, res) => {
@@ -29,6 +29,7 @@ router.post('/', (req, res) => {
       if (bcrypt.compareSync(req.body.password, foundUser.password)) {
         // add the user to our session
         req.session.currentUser = foundUser
+        page = 'partials/nav.ejs'
         console.log("Authenticated user "+req.session.currentUser.username);
         // redirect back to our home page
         res.redirect('/')
@@ -41,6 +42,7 @@ router.post('/', (req, res) => {
 })
 router.delete('/', (req, res) => {
   req.session.destroy(() => {
+    page = 'partials/nav-login.ejs'
     res.redirect('/')
   })
 })

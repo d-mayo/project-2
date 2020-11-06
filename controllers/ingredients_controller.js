@@ -45,11 +45,16 @@ ingredients.post('/', async (req, res) => {
   // UPDATE
 ingredients.put('/remove/user/:id', isAuthenticated, async (req, res) => {
 
-    curUser = req.session.currentUser;
+    console.log("Hi");
+
+    curUser = await User.findById(req.session.currentUser._id);
 
     ingredientIndex = curUser.ingredients.indexOf(req.params.id) ;
+    console.log(curUser);
 
     curUser.ingredients.splice( ingredientIndex, 1);
+
+    
 
     
     let selectedUser = await User.findByIdAndUpdate(
@@ -65,7 +70,9 @@ ingredients.put('/remove/user/:id', isAuthenticated, async (req, res) => {
 
 ingredients.put('/add/user', isAuthenticated, async (req, res) => {
 
-    curUser = req.session.currentUser;
+    curUser = await User.findById(req.session.currentUser._id);;
+
+    console.log(curUser);
 
     let searchedIngredient = req.body.addedIngredient;
 
